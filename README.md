@@ -162,12 +162,14 @@ Note: By reviewing the API docs and response format my understanding was that th
 ## Version History
 
 **2.0.0** (April 25, 2015)
-  Drop support for Ruby 1.8 and Ruby 1.9
-  Added support for Ruby 2.0, 2.1 and 2.2
-  Added support for Rails 4.0, 4.1 an 4.2
-  Changed test_helper to avoid requiring test_unit (removed in Ruby 2.2)
-  Replaced Test::Unit::TestCase with ActiveSupport::TestCase
-  Bumped shoulda and losen dependencies on minitest
+
+* Dropped support for Ruby 1.8 and Ruby 1.9
+* Added support for Ruby 2.0, 2.1 and 2.2
+* Added support for Rails 4.0, 4.1 an 4.2
+* Changed test_helper to avoid requiring test_unit (removed in Ruby 2.2)
+* Replaced Test::Unit::TestCase with ActiveSupport::TestCase
+* Bumped shoulda and losen dependencies on minitest
+* All changes in PR's #13, #14, #15, #16 - thanks [@pschambacher](https://github.com/pschambacher)
 
 **1.4.0** (June 1, 2014)
 
