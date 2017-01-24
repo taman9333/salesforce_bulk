@@ -153,6 +153,10 @@ Query results are handled differently as its possible that a single batch could 
 
 Note: By reviewing the API docs and response format my understanding was that the API would return multiple results sets for a single batch if the query was to large but this does not seem to be the case in my live testing. It seems to be capped at 10000 records (as it when inserting data) but I haven't been able to verify through the documentation. If you know anything about that your input is appreciated. In the meantime the gem was built to support multiple result sets for a query batch but seems that will change which will simplify that method.
 
+## Releasing
+
+To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
 ## Contribution Suggestions/Ideas
 
 - Support for other Ruby platforms
@@ -160,6 +164,10 @@ Note: By reviewing the API docs and response format my understanding was that th
 - Rdocs
 
 ## Version History
+
+**2.0.1** (January 24, 2017)
+
+* Bug fix for response handling ([#17](https://github.com/javierjulio/salesforce_bulk/pull/17))
 
 **2.0.0** (April 25, 2015)
 
