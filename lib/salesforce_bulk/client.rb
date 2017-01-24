@@ -142,7 +142,7 @@ module SalesforceBulk
     def batch_result(jobId, batchId)
       response = http_get("job/#{jobId}/batch/#{batchId}/result")
 
-      if response.body =~ /<.*?>/m
+      if ['application/xml', 'text/xml'].include? response.content_type
         result = XmlSimple.xml_in(response.body)
 
         if result['result'].present?
