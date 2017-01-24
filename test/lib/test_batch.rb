@@ -199,13 +199,37 @@ class TestBatch < ActiveSupport::TestCase
     assert_equal results.first.error, ''
   end
 
+  test "processes CSV response with HTML containing error messages" do
+    response = fixture("batch_result_list_failed_response.csv")
+    job_id = "750E00000004NRa"
+    batch_id = "751E00000004ZmK"
+
+    stub_request(:get, "#{api_url(@client)}job/#{job_id}/batch/#{batch_id}/result").to_return(:body => response, :status => 200)
+
+    results = @client.batch_result(job_id, batch_id)
+
+    assert_requested :get, "#{api_url(@client)}job/#{job_id}/batch/#{batch_id}/result", :times => 1
+
+    assert_kind_of SalesforceBulk::BatchResultCollection, results
+    assert_kind_of Array, results
+    assert_equal results.length, 2
+    assert_equal results.job_id, job_id
+    assert_equal results.batch_id, batch_id
+    assert_equal results.first.success, false
+    assert_equal results.first.created, false
+    assert_equal results.first.error?, true
+    assert_equal results.first.error, 'Error message'
+    assert_equal results.last.error?, true
+    assert_equal results.last.error, 'Error message with <b>HTML</b>'
+  end
+
   test "retrieve result id for a query operation" do
     response = fixture("query_result_list_response.xml")
     job_id = "750E00000004NnR"
     batch_id = "751E00000004aEY"
     result_id = "752E0000000TNaq"
 
-    stub_request(:get, "#{api_url(@client)}job/#{job_id}/batch/#{batch_id}/result").with(:headers => @headersWithXml).to_return(:body => response, :status => 200)
+    stub_request(:get, "#{api_url(@client)}job/#{job_id}/batch/#{batch_id}/result").with(:headers => @headersWithXml).to_return(:body => response, :status => 200, :headers => @headersWithXml)
 
     @client.expects(:query_result).with(job_id, batch_id, result_id).returns([])
 
