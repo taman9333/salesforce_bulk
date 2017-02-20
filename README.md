@@ -165,6 +165,10 @@ To release a new version, update the version number in `version.rb`, and then ru
 
 ## Version History
 
+**2.0.2** (February 20, 2017)
+
+* Rails 5 support by relaxing ActiveSupport dependency ([#18](https://github.com/javierjulio/salesforce_bulk/pull/18))
+
 **2.0.1** (January 24, 2017)
 
 * Bug fix for response handling ([#17](https://github.com/javierjulio/salesforce_bulk/pull/17))
