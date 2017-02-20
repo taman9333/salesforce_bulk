@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files lib README.md`.split("\n")
 
-  s.add_dependency "activesupport", '>= 3.2.0', '< 5.0'
+  s.add_dependency "activesupport", '>= 3.2.0', '< 6'
   s.add_dependency "xml-simple"
 
   s.add_development_dependency "rake"
