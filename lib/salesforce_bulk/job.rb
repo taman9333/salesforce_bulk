@@ -40,7 +40,7 @@ module SalesforceBulk
       job.in_progress_batches = data['numberBatchesInProgress'].to_i
       job.completed_batches = data['numberBatchesCompleted'].to_i
       job.failed_batches = data['numberBatchesFailed'].to_i
-      job.total_batches = data['totalBatches'].to_i
+      job.total_batches = data['numberBatchesTotal'].to_i
       job.retries = data['retries'].to_i
       job.processed_records = data['numberRecordsProcessed'].to_i
       job.failed_records = data['numberRecordsFailed'].to_i
