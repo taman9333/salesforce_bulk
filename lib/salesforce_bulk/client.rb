@@ -17,6 +17,9 @@ module SalesforceBulk
     # The API version the client is using. Defaults to 24.0.
     attr_accessor :version
 
+    # The ID for authenticated session
+    attr_reader :session_id
+
     def initialize(options={})
       if options.is_a?(String)
         options = YAML.load_file(options)
@@ -38,6 +41,10 @@ module SalesforceBulk
     end
 
     def authenticate
+      # Clear session attributes just in case client already had a session
+      @session_id = nil
+      self.instance_host = nil
+
       xml = '<?xml version="1.0" encoding="utf-8"?>'
       xml += '<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"'
       xml += ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
