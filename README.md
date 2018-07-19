@@ -165,6 +165,13 @@ To release a new version, update the version number in `version.rb`, and then ru
 
 ## Version History
 
+**3.0.0** (July 19, 2017)
+
+* Dropped old Ruby support, now requires Ruby 2.3 and up
+* Dropped Travis build for Rails 4.0
+* Added support for re-authenticating ([#20]((https://github.com/javierjulio/salesforce_bulk/pull/20))
+* Use the right tag name for total batches in job info ([#19]((https://github.com/javierjulio/salesforce_bulk/pull/19))
+
 **2.0.2** (February 20, 2017)
 
 * Rails 5 support by relaxing ActiveSupport dependency ([#18](https://github.com/javierjulio/salesforce_bulk/pull/18))
