@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "rdoc"
   s.add_development_dependency "mocha", '~> 0.13.0'
-  s.add_development_dependency "shoulda", '~> 3.5.0'
-  s.add_development_dependency "webmock", '~> 1.8.11'
+  s.add_development_dependency "shoulda", '~> 3.5'
+  s.add_development_dependency "webmock", '~> 3.0'
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'bump'
   s.add_development_dependency 'wwtd'
