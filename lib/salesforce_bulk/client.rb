@@ -162,7 +162,7 @@ module SalesforceBulk
         result = BatchResultCollection.new(jobId, batchId)
 
         CSV.parse(response.body, :headers => true) do |row|
-          result << BatchResult.new(row[0], row[1].to_b, row[2].to_b, row[3])
+          result << BatchResult.new(row[0], to_boolean(row[1]), to_boolean(row[2]), row[3])
         end
 
         result
@@ -178,7 +178,7 @@ module SalesforceBulk
 
       result = []
 
-      #CSV.parse(lines.join, :headers => headers, :converters => [:all, lambda{|s| s.to_b if s.kind_of? String }]) do |row|
+      #CSV.parse(lines.join, :headers => headers, :converters => [:all, lambda{|s| to_boolean(s) if s.kind_of? String }]) do |row|
       CSV.parse(lines.join, :headers => headers) do |row|
         result << Hash[row.headers.zip(row.fields)]
       end
@@ -261,6 +261,17 @@ module SalesforceBulk
           raise ArgumentError.new("Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}")
         end
       end
+    end
+
+    def to_boolean(value)
+      if !value.nil?
+        if value.strip.casecmp("true") == 0
+          return true
+        elsif value.strip.casecmp("false") == 0
+          return false
+        end
+      end
+      value
     end
   end
 end
