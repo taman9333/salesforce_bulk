@@ -54,27 +54,6 @@ client.authenticate
 
 Optional keys include `login_host` (default is 'login.salesforce.com') and `version` (default is '24.0').
 
-### Configuring from a YAML file
-
-Create a YAML file with the content below. Only `username` and `password` is required.
-
-```yaml
----
-username: MyUsername
-password: MyPassword
-login_host: login.salesforce.com # default
-version: 24.0 # default
-```
-
-Then in a Ruby script:
-
-```ruby
-require 'salesforce_bulk'
-
-client = SalesforceBulk::Client.new("config/salesforce_bulk.yml")
-client.authenticate
-```
-
 ## Usage Examples
 
 An important note about the data in any of the examples below: each hash in a data set must have the same set of keys. If you need to have logic to not include certain values simply specify a nil value for a key rather than not including the key-value pair.

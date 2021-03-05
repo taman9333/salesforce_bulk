@@ -29,16 +29,7 @@ class TestInitialization < ActiveSupport::TestCase
     assert_equal client.login_host, @options[:login_host]
     assert_equal client.version,    @options[:version]
   end
-  
-  test "initialization with a YAML file" do
-    client = SalesforceBulk::Client.new(fixture_path('config.yml'))
-    
-    assert_equal client.username,   'MyUsername'
-    assert_equal client.password,   'MyPassword'
-    assert_equal client.login_host, 'myhost.mydomain.com'
-    assert_equal client.version,    88.0
-  end
-  
+
   test "initialization with invalid key raises ArgumentError" do
     assert_raise ArgumentError do
       SalesforceBulk::Client.new(:non_existing_key => '')

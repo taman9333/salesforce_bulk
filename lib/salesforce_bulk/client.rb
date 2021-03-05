@@ -21,11 +21,6 @@ module SalesforceBulk
     attr_reader :session_id
 
     def initialize(options={})
-      if options.is_a?(String)
-        options = YAML.load_file(options)
-        options.symbolize_keys!
-      end
-
       options = {:login_host => 'login.salesforce.com', :version => 24.0}.merge(options)
 
       assert_valid_keys(options, :username, :password, :login_host, :version)
