@@ -1,5 +1,9 @@
 # SalesforceBulk
 
+[![Gem Version](https://badge.fury.io/rb/salesforcebulk.svg)](https://badge.fury.io/rb/salesforcebulk)
+
+[![Tests](https://github.com/javierjulio/salesforce_bulk/actions/workflows/ci.yml/badge.svg)](https://github.com/javierjulio/salesforce_bulk/actions/workflows/ci.yml)
+
 ## Overview
 
 SalesforceBulk is an easy to use Ruby gem for connecting to and using the [Salesforce Bulk API](http://www.salesforce.com/us/developer/docs/api_asynch/index.htm). This is a rewrite and separate release of Jorge Valdivia's salesforce_bulk gem (renamed `salesforcebulk`) with full unit tests and full API capability (e.g. adding multiple batches per job).
