@@ -5,6 +5,8 @@
 * Removed YAML configuration support
 * Removed ActiveSupport dependency
 * Removed String monkey patch: `to_b` method (to boolean)
+* Replaced Travis with GitHub Actions CI
+* Added Ruby CI matrix from 2.3 to 3.0
 
 **3.0.0** (July 19, 2017)
 
