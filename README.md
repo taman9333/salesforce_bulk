@@ -1,7 +1,6 @@
 # SalesforceBulk
 
 [![Gem Version](https://badge.fury.io/rb/salesforcebulk.svg)](https://badge.fury.io/rb/salesforcebulk)
-
 [![Tests](https://github.com/javierjulio/salesforce_bulk/actions/workflows/ci.yml/badge.svg)](https://github.com/javierjulio/salesforce_bulk/actions/workflows/ci.yml)
 
 ## Overview
