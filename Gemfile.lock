@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    salesforcebulk (3.0.0)
+    salesforcebulk (4.0.0)
       xml-simple
 
 GEM

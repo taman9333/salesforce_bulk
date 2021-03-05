@@ -1,6 +1,6 @@
 ## Changelog
 
-**unreleased**
+**4.0.0** (March 5, 2021)
 
 * Removed YAML configuration support
 * Removed ActiveSupport dependency
