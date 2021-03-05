@@ -32,7 +32,7 @@ GEM
     xml-simple (1.1.8)
 
 PLATFORMS
-  ruby
+  x86_64-darwin-19
 
 DEPENDENCIES
   minitest
@@ -43,4 +43,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.1.4
+   2.2.13
