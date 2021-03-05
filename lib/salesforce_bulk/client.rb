@@ -119,7 +119,7 @@ module SalesforceBulk
 
       response = http_post("job", xml)
       data = XmlSimple.xml_in(response.body, 'ForceArray' => false)
-      job = Job.new_from_xml(data)
+      Job.new_from_xml(data)
     end
 
     def batch_info_list(jobId)
@@ -147,7 +147,7 @@ module SalesforceBulk
       if ['application/xml', 'text/xml'].include? response.content_type
         result = XmlSimple.xml_in(response.body)
 
-        if result['result'].present?
+        if !result['result'].nil? && !result['result'].empty?
           results = query_result(jobId, batchId, result['result'].first)
 
           collection = QueryResultCollection.new(self, jobId, batchId, result['result'].first, result['result'])

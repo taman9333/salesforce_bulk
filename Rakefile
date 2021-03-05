@@ -1,24 +1,9 @@
-require 'bundler/setup'
-require 'bundler/gem_tasks'
-require 'wwtd/tasks'
-require 'bump/tasks'
+require "bundler/gem_tasks"
+require "rake/testtask"
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+Rake::TestTask.new do |task|
+  task.libs << %w(test lib)
+  task.pattern = 'test/**/test_*.rb'
 end
 
-task :default => :test
-
-namespace :doc do
-  require 'rdoc/task'
-  require File.expand_path('../lib/salesforce_bulk/version', __FILE__)
-  RDoc::Task.new do |rdoc|
-    rdoc.rdoc_dir = 'rdoc'
-    rdoc.title = "SalesforceBulk #{SalesforceBulk::VERSION}"
-    rdoc.main = 'README.md'
-    rdoc.rdoc_files.include('README.md', 'LICENSE.md', 'lib/**/*.rb')
-  end
-end
+task default: :test

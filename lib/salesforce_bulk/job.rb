@@ -1,6 +1,6 @@
 module SalesforceBulk
   class Job
-    
+
     attr_accessor :concurrency_mode
     attr_accessor :external_id_field_name
     attr_accessor :id
@@ -23,7 +23,7 @@ module SalesforceBulk
     attr_accessor :api_active_processing_time
     attr_accessor :total_processing_time
     attr_accessor :api_version
-    
+
     def self.new_from_xml(data)
       job = self.new
       job.id = data['id']
@@ -50,21 +50,21 @@ module SalesforceBulk
       job.api_version = data['apiVersion'].to_i
       job
     end
-    
+
     def aborted?
       state? 'Aborted'
     end
-    
+
     def closed?
       state? 'Closed'
     end
-    
+
     def open?
       state? 'Open'
     end
-    
+
     def state?(value)
-      self.state.present? && self.state.casecmp(value) == 0
+      !self.state.nil? && self.state.casecmp(value) == 0
     end
   end
 end

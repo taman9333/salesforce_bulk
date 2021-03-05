@@ -1,5 +1,11 @@
 ## Changelog
 
+**unreleased**
+
+* Removed YAML configuration support
+* Removed ActiveSupport dependency
+* Removed String monkey patch: `to_b` method (to boolean)
+
 **3.0.0** (July 19, 2017)
 
 * Dropped old Ruby support, now requires Ruby 2.3 and up

@@ -20,23 +20,11 @@ gem 'salesforcebulk'
 
 ## Contribute
 
-To contribute, fork this repo, create a topic branch, make changes, then send a pull request. Pull requests without accompanying tests will *not* be accepted. If you need help creating tests let me know and I'll help out. To setup the project and run tests in your fork, just do:
+To contribute, fork this repo, create a topic branch, add changes and tests, then send a pull request. To setup the project and run tests in your fork, just do:
 
 ```
 bundle install
-rake
-```
-
-To run the test suite on all gemfiles with your current ruby version, use:
-
-```
-bundle exec rake wwtd:local
-```
-
-To run the full test suite with different gemfiles and ruby versions, use:
-
-```
-bundle exec rake wwtd
+bundle exec rake
 ```
 
 ## Configuration and Initialization

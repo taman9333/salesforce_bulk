@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TestBatch < ActiveSupport::TestCase
+class TestBatch < Minitest::Test
 
   def setup
     options = {
@@ -106,7 +106,7 @@ class TestBatch < ActiveSupport::TestCase
   test "should raise ArgumentError when given data array length exceeding 10000" do
     data = (1..10100).map { |index| {:Id => index} }
 
-    assert_raise ArgumentError do
+    assert_raises ArgumentError do
       @client.add_batch("750E00000004NRfIAM", data)
     end
   end
@@ -264,7 +264,7 @@ class TestBatch < ActiveSupport::TestCase
 
     stub_request(:get, "#{api_url(@client)}job/#{job_id}/batch/#{batch_id}/result").with(:headers => @headersWithXml).to_return(:body => response, :status => 400)
 
-    assert_raise SalesforceBulk::SalesforceError do
+    assert_raises SalesforceBulk::SalesforceError do
       @client.batch_result(job_id, batch_id)
     end
   end
