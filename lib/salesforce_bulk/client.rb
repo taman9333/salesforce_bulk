@@ -28,7 +28,7 @@ module SalesforceBulk
 
       options = {:login_host => 'login.salesforce.com', :version => 24.0}.merge(options)
 
-      options.assert_valid_keys(:username, :password, :login_host, :version)
+      assert_valid_keys(options, :username, :password, :login_host, :version)
 
       self.username = options[:username]
       self.password = "#{options[:password]}"
@@ -106,7 +106,7 @@ module SalesforceBulk
 
       raise ArgumentError.new("Invalid operation: #{operation}") unless @valid_operations.include?(operation)
 
-      options.assert_valid_keys(:external_id_field_name, :concurrency_mode)
+      assert_valid_keys(options, :external_id_field_name, :concurrency_mode)
 
       if options[:concurrency_mode]
         concurrency_mode = options[:concurrency_mode].capitalize
@@ -250,6 +250,17 @@ module SalesforceBulk
 
     def instance_id(url)
       url.match(/:\/\/([a-zA-Z0-9\-\.]{2,}).salesforce/)[1]
+    end
+
+    private
+
+    def assert_valid_keys(options, *valid_keys)
+      valid_keys.flatten!
+      options.each_key do |k|
+        unless valid_keys.include?(k)
+          raise ArgumentError.new("Unknown key: #{k.inspect}. Valid keys are: #{valid_keys.map(&:inspect).join(', ')}")
+        end
+      end
     end
   end
 end
