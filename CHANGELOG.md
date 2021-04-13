@@ -1,5 +1,9 @@
 ## Changelog
 
+**4.0.1** (April 13, 2021)
+
+* Escape special characters in password during authentication ([#23](https://github.com/javierjulio/salesforce_bulk/pull/23) - thanks [@lavaturtle](https://github.com/lavaturtle))
+
 **4.0.0** (March 5, 2021)
 
 * Removed YAML configuration support
