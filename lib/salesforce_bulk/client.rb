@@ -47,7 +47,7 @@ module SalesforceBulk
       xml += "<env:Body>"
       xml += '<n1:login xmlns:n1="urn:partner.soap.sforce.com">'
       xml += "<n1:username>#{username}</n1:username>"
-      xml += "<n1:password>#{password}</n1:password>"
+      xml += "<n1:password>#{password.encode(xml: :text)}</n1:password>"
       xml += "</n1:login>"
       xml += "</env:Body>"
       xml += "</env:Envelope>\n"
