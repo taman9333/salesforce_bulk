@@ -51,6 +51,25 @@ class TestInitialization < Minitest::Test
     assert_equal @client, result
   end
 
+  test "authentication with an ampersand in the password" do
+    @options.merge!({:password => 'My&Password'})
+    client = SalesforceBulk::Client.new(@options)
+
+    headers = {'Content-Type' => 'text/xml', 'SOAPAction' => 'login'}
+    request = fixture("login_request_with_special_characters.xml")
+    response = fixture("login_response.xml")
+
+    stub_request(:post, "https://#{client.login_host}/services/Soap/u/24.0").with(:body => request, :headers => headers).to_return(:body => response, :status => 200)
+
+    result = client.authenticate()
+
+    assert_requested :post, "https://#{client.login_host}/services/Soap/u/24.0", :body => request, :headers => headers, :times => 1
+
+    assert_equal client.instance_host, 'na9-api.salesforce.com'
+    assert_equal client.session_id, '00DE0000000YSKp!AQ4AQNQhDKLMORZx2NwZppuKfure.ChCmdI3S35PPxpNA5MHb3ZVxhYd5STM3euVJTI5.39s.jOBT.3mKdZ3BWFDdIrddS8O'
+    assert_equal client, result
+  end
+
   test "re-authenticate" do
     headers = {'Content-Type' => 'text/xml', 'SOAPAction' => 'login'}
     request = fixture("login_request.xml")
