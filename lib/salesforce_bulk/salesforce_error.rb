@@ -5,25 +5,28 @@ module SalesforceBulk
     attr_accessor :response
     # The status code from the server response body.
     attr_accessor :error_code
-    
+
     def initialize(response)
       self.response = response
-      
-      data = XmlSimple.xml_in(response.body, 'ForceArray' => false)
-      
-      if data
-        # seems responses for CSV requests use a different XML return format 
-        # (use invalid_error.xml for reference)
-        if !data['exceptionMessage'].nil?
-          message = data['exceptionMessage']
-        else
-          # SOAP error response
-          message = data['Body']['Fault']['faultstring']
+      self.error_code = response.code
+
+      if error_code =~ /3\d\d/
+        message = "Moved to #{response.header['location']}"
+      else
+        data = XmlSimple.xml_in(response.body, 'ForceArray' => false)
+
+        if data
+          # seems responses for CSV requests use a different XML return format
+          # (use invalid_error.xml for reference)
+          if !data['exceptionMessage'].nil?
+            message = data['exceptionMessage']
+          else
+            # SOAP error response
+            message = data['Body']['Fault']['faultstring']
+          end
         end
-        
-        self.error_code = response.code
       end
-      
+
       super(message)
     end
   end
