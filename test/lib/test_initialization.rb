@@ -88,6 +88,20 @@ class TestInitialization < Minitest::Test
     assert_requested :post, "https://#{@client.login_host}/services/Soap/u/24.0", :body => request, :headers => headers, :times => 2
   end
 
+  test "responds with redirect" do
+    request_headers = {'Content-Type' => 'text/xml', 'SOAPAction' => 'login'}
+    request = fixture("login_request.xml")
+    response_headers = {'location' => 'https://login2.salesforce.com'}
+    response = 'The URL has moved <a href="https://login2.salesforce.com/services/Soap/u/24.0">here</a>'
+    stub_request(:post, "https://#{@client.login_host}/services/Soap/u/24.0").with(:body => request, :headers => request_headers).to_return(:body => response, :status => 307, :headers => response_headers)
+
+    error = assert_raises SalesforceBulk::SalesforceError do
+      @client.authenticate
+    end
+    assert_equal '307', error.error_code
+    assert_match 'Moved to https://login2.salesforce.com', error.message
+  end
+
   test "parsing instance id from server url" do
     assert_equal @client.instance_id('https://na1-api.salesforce.com'), 'na1-api'
     assert_equal @client.instance_id('https://na23-api.salesforce.com'), 'na23-api'
