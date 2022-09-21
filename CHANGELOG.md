@@ -1,5 +1,9 @@
 ## Changelog
 
+**4.0.2** (September 21, 2022)
+
+* Avoid NoMethodError exceptions on nil when authentication response is a redirect ([#24](https://github.com/javierjulio/salesforce_bulk/pull/24) - thanks [@anero](https://github.com/anero))
+
 **4.0.1** (April 13, 2021)
 
 * Escape special characters in password during authentication ([#23](https://github.com/javierjulio/salesforce_bulk/pull/23) - thanks [@lavaturtle](https://github.com/lavaturtle))
