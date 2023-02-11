@@ -7,26 +7,28 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     ansi (1.5.0)
     builder (3.2.4)
     crack (0.4.5)
       rexml
     hashdiff (1.0.1)
-    minitest (5.14.4)
-    minitest-reporters (1.4.3)
+    minitest (5.17.0)
+    minitest-reporters (1.5.0)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mocha (1.12.0)
-    public_suffix (4.0.6)
-    rake (13.0.3)
-    rexml (3.2.4)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
+    public_suffix (5.0.1)
+    rake (13.0.6)
+    rexml (3.2.5)
     ruby-progressbar (1.11.0)
-    webmock (3.12.0)
-      addressable (>= 2.3.6)
+    ruby2_keywords (0.0.5)
+    webmock (3.18.1)
+      addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     xml-simple (1.1.9)
