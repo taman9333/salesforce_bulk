@@ -16,17 +16,28 @@ class TestInitialization < Minitest::Test
     assert_equal @client.password, @options[:password]
     assert_equal @client.login_host, 'login.salesforce.com'
     assert_equal @client.version, 24.0
+    assert_equal @client.instance_host, nil
+    assert_equal @client.session_id, nil
   end
 
   test "initialization overriding all default values" do
-    @options.merge!({:login_host => 'newhost.salesforce.com', :version => 1.0})
+    @options.merge!(
+      {
+        login_host: 'newhost.salesforce.com',
+        version: 1.0,
+        instance_host: 'newhost.my.salesforce.com',
+        session_id: 'secret_session_token'
+      }
+    )
 
     client = SalesforceBulk::Client.new(@options)
 
-    assert_equal client.username,   @options[:username]
-    assert_equal client.password,   @options[:password]
-    assert_equal client.login_host, @options[:login_host]
-    assert_equal client.version,    @options[:version]
+    assert_equal client.username,      @options[:username]
+    assert_equal client.password,      @options[:password]
+    assert_equal client.login_host,    @options[:login_host]
+    assert_equal client.version,       @options[:version]
+    assert_equal client.instance_host, @options[:instance_host]
+    assert_equal client.session_id,    @options[:session_id]
   end
 
   test "initialization with invalid key raises ArgumentError" do

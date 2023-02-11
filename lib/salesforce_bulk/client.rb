@@ -18,17 +18,19 @@ module SalesforceBulk
     attr_accessor :version
 
     # The ID for authenticated session
-    attr_reader :session_id
+    attr_accessor :session_id
 
     def initialize(options={})
       options = {:login_host => 'login.salesforce.com', :version => 24.0}.merge(options)
 
-      assert_valid_keys(options, :username, :password, :login_host, :version)
+      assert_valid_keys(options, :username, :password, :login_host, :version, :instance_host, :session_id)
 
       self.username = options[:username]
       self.password = "#{options[:password]}"
       self.login_host = options[:login_host]
       self.version = options[:version]
+      self.instance_host = options[:instance_host]
+      self.session_id = options[:session_id]
 
       @api_path_prefix = "/services/async/#{version}/"
       @valid_operations = [:delete, :insert, :update, :upsert, :query]
