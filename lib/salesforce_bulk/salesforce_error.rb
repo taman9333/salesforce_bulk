@@ -11,7 +11,7 @@ module SalesforceBulk
       self.error_code = response.code
 
       if (300..308).cover?(error_code.to_i)
-        message = "Moved to #{response.header['location']}"
+        message = "Moved to #{response['location']}"
       else
         data = XmlSimple.xml_in(response.body, 'ForceArray' => false)
 
