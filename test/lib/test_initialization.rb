@@ -16,8 +16,8 @@ class TestInitialization < Minitest::Test
     assert_equal @client.password, @options[:password]
     assert_equal @client.login_host, 'login.salesforce.com'
     assert_equal @client.version, 24.0
-    assert_equal @client.instance_host, nil
-    assert_equal @client.session_id, nil
+    assert_nil @client.instance_host
+    assert_nil @client.session_id
   end
 
   test "initialization overriding all default values" do
