@@ -1,5 +1,9 @@
 ## Changelog
 
+**4.0.3** (February 11, 2023)
+
+* Make `session_id` on `Client` writable ([#26](https://github.com/javierjulio/salesforce_bulk/pull/26) - thanks [@SValkanov](https://github.com/SValkanov))
+
 **4.0.2** (September 21, 2022)
 
 * Avoid NoMethodError exceptions on nil when authentication response is a redirect ([#24](https://github.com/javierjulio/salesforce_bulk/pull/24) - thanks [@anero](https://github.com/anero))
