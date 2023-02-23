@@ -264,9 +264,28 @@ class TestBatch < Minitest::Test
 
     stub_request(:get, "#{api_url(@client)}job/#{job_id}/batch/#{batch_id}/result").with(:headers => @headersWithXml).to_return(:body => response, :status => 400)
 
-    assert_raises SalesforceBulk::SalesforceError do
+    error = assert_raises SalesforceBulk::SalesforceError do
       @client.batch_result(job_id, batch_id)
     end
+
+    assert_equal '400', error.error_code
+    assert_equal 'Records not processed', error.message
+    assert_equal 'InvalidBatch', error.exception_code
   end
 
+  test "should raise SalesforceError on invalid session response" do
+    response = fixture("invalid_session_error.xml")
+    job_id = "750E00000004NnR"
+    batch_id = "751E00000004aEY"
+
+    stub_request(:get, "#{api_url(@client)}job/#{job_id}/batch/#{batch_id}/result").with(:headers => @headersWithXml).to_return(:body => response, :status => 400)
+
+    error = assert_raises SalesforceBulk::SalesforceError do
+      @client.batch_result(job_id, batch_id)
+    end
+
+    assert_equal '400', error.error_code
+    assert_equal 'Invalid session id', error.message
+    assert_equal 'InvalidSessionId', error.exception_code
+  end
 end

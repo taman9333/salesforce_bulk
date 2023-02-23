@@ -129,4 +129,19 @@ class TestInitialization < Minitest::Test
     assert_equal @client.instance_id('://na23-api.salesforce'), 'na23-api'
   end
 
+  test "responds with error" do
+    request_headers = {'Content-Type' => 'text/xml', 'SOAPAction' => 'login'}
+    request = fixture("login_request.xml")
+    response_headers = {'location' => 'https://login2.salesforce.com'}
+    response = fixture("login_error.xml")
+    stub_request(:post, "https://#{@client.login_host}/services/Soap/u/24.0").with(:body => request, :headers => request_headers).to_return(:body => response, :status => 500, :headers => response_headers)
+
+    error = assert_raises SalesforceBulk::SalesforceError do
+      @client.authenticate
+    end
+
+    assert_equal '500', error.error_code
+    assert_equal 'INVALID_LOGIN: Invalid username, password, security token; or user locked out.', error.message
+    assert_equal 'INVALID_LOGIN', error.exception_code
+  end
 end
