@@ -1,5 +1,9 @@
 ## Changelog
 
+**4.0.4** (February 23, 2023)
+
+* Add `exception_code` attribute to `SalesforceError` with parsed exception code ([#27](https://github.com/javierjulio/salesforce_bulk/pull/27) - thanks [@SValkanov](https://github.com/SValkanov))
+
 **4.0.3** (February 11, 2023)
 
 * Make `session_id` on `Client` writable ([#26](https://github.com/javierjulio/salesforce_bulk/pull/26) - thanks [@SValkanov](https://github.com/SValkanov))
