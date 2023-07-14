@@ -20,10 +20,17 @@ module SalesforceBulk
     # The ID for authenticated session
     attr_accessor :session_id
 
+    # The restforce client in case we are authenticating using restforce gem
+    attr_accessor :restforce_client
+
+    VALID_KEYS = [
+      :restforce_client, :username, :password, :login_host, :version, :instance_host, :session_id
+    ]
+
     def initialize(options={})
       options = {:login_host => 'login.salesforce.com', :version => 24.0}.merge(options)
 
-      assert_valid_keys(options, :username, :password, :login_host, :version, :instance_host, :session_id)
+      assert_valid_keys(options, VALID_KEYS)
 
       self.username = options[:username]
       self.password = "#{options[:password]}"
@@ -31,6 +38,7 @@ module SalesforceBulk
       self.version = options[:version]
       self.instance_host = options[:instance_host]
       self.session_id = options[:session_id]
+      self.restforce_client = options[:restforce_client]
 
       @api_path_prefix = "/services/async/#{version}/"
       @valid_operations = [:delete, :insert, :update, :upsert, :query]
@@ -42,26 +50,11 @@ module SalesforceBulk
       @session_id = nil
       self.instance_host = nil
 
-      xml = '<?xml version="1.0" encoding="utf-8"?>'
-      xml += '<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"'
-      xml += ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
-      xml += ' xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">'
-      xml += "<env:Body>"
-      xml += '<n1:login xmlns:n1="urn:partner.soap.sforce.com">'
-      xml += "<n1:username>#{username}</n1:username>"
-      xml += "<n1:password>#{password.encode(xml: :text)}</n1:password>"
-      xml += "</n1:login>"
-      xml += "</env:Body>"
-      xml += "</env:Envelope>\n"
-
-      response = http_post("/services/Soap/u/#{version}", xml, 'Content-Type' => 'text/xml', 'SOAPAction' => 'login')
-
-      data = XmlSimple.xml_in(response.body, 'ForceArray' => false)
-      result = data['Body']['loginResponse']['result']
-
-      @session_id = result['sessionId']
-
-      self.instance_host = "#{instance_id(result['serverUrl'])}.salesforce.com"
+      if restforce_client
+        authenticate_using_restforce
+      else
+        authenticate_using_username_and_password
+      end
       self
     end
 
@@ -269,6 +262,34 @@ module SalesforceBulk
         end
       end
       value
+    end
+
+    def authenticate_using_restforce
+      @session_id = restforce_client.options[:oauth_token]
+      self.instance_host = "#{instance_id(restforce_client.options[:instance_url])}.salesforce.com"
+    end
+
+    def authenticate_using_username_and_password
+      xml = '<?xml version="1.0" encoding="utf-8"?>'\
+            '<env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"'\
+            ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'\
+            ' xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">'\
+            '<env:Body>'\
+            '<n1:login xmlns:n1="urn:partner.soap.sforce.com">'\
+            "<n1:username>#{username}</n1:username>"\
+            "<n1:password>#{password.encode(xml: :text)}</n1:password>"\
+            '</n1:login>'\
+            '</env:Body>'\
+            '</env:Envelope>\n'
+
+      response = http_post("/services/Soap/u/#{version}", xml, 'Content-Type' => 'text/xml', 'SOAPAction' => 'login')
+
+      data = XmlSimple.xml_in(response.body, 'ForceArray' => false)
+      result = data['Body']['loginResponse']['result']
+
+      @session_id = result['sessionId']
+
+      self.instance_host = "#{instance_id(result['serverUrl'])}.salesforce.com"
     end
   end
 end
