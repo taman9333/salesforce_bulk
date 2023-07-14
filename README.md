@@ -43,6 +43,15 @@ client = SalesforceBulk::Client.new(username: 'MyUsername', password: 'MyPasswor
 client.authenticate
 ```
 
+### Authenticate using client of `restforce` gem
+
+```ruby
+require 'salesforce_bulk'
+
+client = SalesforceBulk::Client.new(restforce_client: Restforce.new(restforce_client_configuration))
+client.authenticate
+```
+
 Optional keys include `login_host` (default is 'login.salesforce.com') and `version` (default is '24.0').
 
 ## Usage Examples
